@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasta Paradise</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+<!--    MAIN CSS STYLE  -->
+    <link rel="stylesheet" href="css/style.css">
+
+<!--    REVIEWS STYLE   -->
+    <link rel="stylesheet" href="css/review.css">
+
+<!--    FOOTER STYLE    -->
+    <link rel="stylesheet" href="css/footer.css">
+
+
+<!--    <a target="_blank" href="https://icons8.com/icon/pzJyl1GCF1hl/pasta">Pasta</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
+    <link rel="icon" type="image/png" href="img/pastaFavIcon.png">
+</head>
+<body>
+
+<!-- ============================= -->
+<!-- Navbar -->
+<!-- ============================= -->
+<nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+        <img src="img/pastaFavIcon.png" alt="Logo" width="64" class="d-inline-block align-text-center">
+
+        <a class="navbar-brand" href="#">Pasta Paradise</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+                <li class="nav-item"><a class="nav-link" href="#create">Create Your Pasta</a></li>
+                <li class="nav-item"><a class="nav-link" href="checkout.html">Checkout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- ============================= -->
+<!-- Hero/Banner/Heading -->
+<!-- ============================= -->
+<header id="home" class="hero">
+    <div class="container text-center text-white">
+        <h1>Delicious Pasta, Your Way</h1>
+        <p>Customize your perfect pasta meal</p>
+    </div>
+</header>
+
+<!-- ============================= -->
+<!-- About Section -->
+<!-- ============================= -->
+<section id="about" class="about-section">
+    <div class="about-title">
+        <h2>What Makes Our Pasta Special?</h2>
+    </div>
+
+    <!-- About Section -->
+    <div class="about-grid">
+
+        <!-- Left Side: Pasta Dish -->
+        <div class="about-center">
+            <img src="img/pastaDish.webp" alt="Pasta Dish">
+        </div>
+
+        <!-- Right Side: Ingredients List -->
+        <div class="about-items">
+            <div class="about-item">
+                <img src="img/oliveOil.webp" alt="Olive Oil">
+                <div>
+                    <h4>Olive Oil</h4>
+                    <p>Freshly pressed extra virgin olive oil for authentic Mediterranean flavor.</p>
+                </div>
+            </div>
+            <div class="about-item">
+                <img src="img/butter.webp" alt="Butter">
+                <div>
+                    <h4>Butter</h4>
+                    <p>Rich, creamy butter to elevate every bite of your pasta dish.</p>
+                </div>
+            </div>
+            <div class="about-item">
+                <img src="img/cheese.png" alt="Best Cheeses">
+                <div>
+                    <h4>The Best Cheeses</h4>
+                    <p>Parmigiano Reggiano, Pecorino Romano, and more for the creamiest pastas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Second Part: Bold Statement Section -->
+        <div class="about-banner">
+            <div class="about-text">
+                <h2>FRESH INGREDIENTS. PERFECT FLAVORS.</h2>
+                <p>At the heart of our pasta is a perfect balance of tradition and innovation. We honor time-honored techniques while embracing modern culinary artistry to craft an unforgettable experience. Using only the finest ingredients—premium olive oil, rich butter, and the best cheeses—we ensure every bite is packed with authentic flavor and creamy perfection. Whether it’s a classic dish or a bold new creation, our pasta is designed to bring comfort, indulgence, and quality to your table.</p>
+            </div>
+            <div class="about-image">
+<!--                Photo by <a href="https://unsplash.com/@islandsandsunsets?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Olayinka Babalola</a> on <a href="https://unsplash.com/photos/cooked-noodles-with-shrimps-r01ZopTiEV8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+      -->
+                <img src="img/pastaBowl.jpg" alt="Pasta Bowl">
+            </div>
+        </div>
+</section>
+
+
+<!-- ============================= -->
+<!-- Menu Section -->
+<!-- ============================= -->
+<section id="menu" class="custom-menu-section">
+    <div class="menu-container">
+        <h2>Our Bestsellers</h2>
+        <div class="menu-grid">
+            <!-- Classic Spaghetti -->
+            <div class="menu-card">
+                <img src="img/spaghetti.jpg" alt="Classic Spaghetti">
+                <div class="menu-card-body">
+                    <h5 class="menu-card-title">Classic Spaghetti</h5>
+                    <p class="menu-card-text">Traditional spaghetti with our signature marinara sauce.</p>
+                    <a href="checkout.html" class="btn-order">Order Now</a>
+                </div>
+            </div>
+
+            <!-- Creamy Carbonara -->
+            <div class="menu-card">
+                <img src="img/carbonara.jpg" alt="Creamy Carbonara">
+                <div class="menu-card-body">
+                    <h5 class="menu-card-title">Creamy Carbonara</h5>
+                    <p class="menu-card-text">Rich and creamy pasta with pancetta and parmesan.</p>
+                    <a href="checkout.html" class="btn-order">Order Now</a>
+                </div>
+            </div>
+
+            <!-- Pesto Perfection -->
+            <div class="menu-card">
+                <img src="img/pesto.jpg" alt="Pesto Perfection">
+                <div class="menu-card-body">
+                    <h5 class="menu-card-title">Pesto Perfection</h5>
+                    <p class="menu-card-text">Fresh basil pesto with cherry tomatoes and pine nuts.</p>
+                    <a href="checkout.html" class="btn-order">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============================= -->
+<!-- Customer Reviews Section -->
+<!-- ============================= -->
+<section id="reviews" class="customer-reviews-section py-5">
+    <div class="container text-center">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <p class="section-subtitle">Real feedback from our pasta lovers!</p>
+
+        <!-- Bootstrap Carousel -->
+        <div id="reviewCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <!-- Review 1 -->
+                <div class="carousel-item active">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user1.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">Sophia M.</h5>
+                        </div>
+                        <p class="review-text">
+                            "Absolutely amazing pasta! The flavors are authentic, and the ingredients are fresh.
+                            Highly recommend the creamy carbonara!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="carousel-item">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user2.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">Daniel R.</h5>
+                        </div>
+                        <p class="review-text">
+                            "The create-your-own pasta option is fantastic! I love being able to mix and match
+                            my favorite ingredients."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="carousel-item">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user3.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">Emily T.</h5>
+                        </div>
+                        <p class="review-text">
+                            "The best pasta in town! The portions are generous, and the service is top-notch.
+                            Will definitely come back!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review 4 -->
+                <div class="carousel-item">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user4.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">Michael J.</h5>
+                        </div>
+                        <p class="review-text">
+                            "A true Italian experience! The handmade pasta was delicious, and the sauces were rich and flavorful!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review 5 -->
+                <div class="carousel-item">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user5.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">Olivia W.</h5>
+                        </div>
+                        <p class="review-text">
+                            "The truffle pasta was to die for! A perfect blend of creamy and earthy flavors. Can't wait to try more dishes!"
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review 6 -->
+                <div class="carousel-item">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <img src="img/user6.jpg" alt="User Photo" class="user-photo">
+                            <h5 class="review-name">David K.</h5>
+                        </div>
+                        <p class="review-text">
+                            "Fast delivery, hot and fresh food, and excellent service. This is my new go-to pasta place!"
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Carousel Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#reviewCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#reviewCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================= -->
+<!-- Create Your Own Pasta -->
+<!-- ============================= -->
+<section id="create" class="container my-5" action="checkout.html">
+    <h2 class="text-center">Create Your Own Pasta</h2>
+
+    <div class="row">
+        <!-- Left Side: Dynamic Selection Menu -->
+        <div id="selection-container" class="col-md-6"></div>
+
+        <!-- Right Side: Final Dish Display -->
+        <div class="col-md-6 text-center">
+            <h4>Your Selection</h4>
+            <div class="pasta-preview">
+                <img id="plate" src="img/plate.webp" alt="Plate">
+                <img class="overlay pasta-layer" src="" alt="Pasta Layer">
+                <img class="overlay sauce-layer" src="" alt="Sauce Layer">
+                <img class="overlay protein-layer" src="" alt="Protein Layer">
+            </div>
+        </div>
+    </div>
+
+<!--     DONE BUTTON     -->
+        <div class="text-center my-4">
+            <a href="checkout.html" class="btn btn-avocado btn-lg">Done</a>
+        </div>
+</section>
+
+
+<!-- ============================= -->
+<!-- Footer -->
+<!-- ============================= -->
+<footer class="custom-footer">
+    <div class="footer-banner">
+        <div class="footer-info">
+            <div class="footer-year">
+                <span class="footer-label">ESTABLISHED</span>
+                <h2>2025</h2>
+            </div>
+            <div class="footer-location">
+                <span class="footer-label">LOCATION</span>
+                <h2>Zagreb, Croatia</h2> <!-- Adjust location -->
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-content">
+        <div class="footer-column">
+            <h4>Contact</h4>
+            <p>Email: hello@pastaparadise.com</p>
+            <p>Phone: +385 0123 456 789</p>
+        </div>
+        <div class="footer-column">
+            <h4>Follow Us</h4>
+            <p><a href="#">Instagram</a> | <a href="#">Facebook</a></p>
+        </div>
+        <div class="footer-column">
+            <h4>Our Location</h4>
+            <p>Pasta Paradise</p>
+            <p>Ul. Damira Tomljenovića 19</p>
+            <p>10000 Zagreb, Croatia</p>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2025 Pasta Paradise. All Rights Reserved.</p>
+        <div class="footer-nav">
+            <a href="#home" class="footer-btn active">Home</a>
+            <a href="#menu" class="footer-btn">Menu</a>
+            <a href="#create" class="footer-btn">Create Your Pasta</a>
+            <a href="#contact" class="footer-btn">Contact</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================= -->
+<!-- JavaScript -->
+<!-- ============================= -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/App.js" type="module"></script>
+</body>
+</html>

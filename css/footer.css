@@ -1,0 +1,214 @@
+/* ============================= */
+/* Custom Footer */
+/* ============================= */
+
+.custom-footer {
+    background-color: #1a1a1a; /* Dark background */
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Red Banner at the Top */
+.footer-banner {
+    padding: 40px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.footer-info {
+    display: flex;
+    justify-content: space-around;
+    max-width: 600px;
+    width: 100%;
+}
+
+.footer-year h2,
+.footer-location h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+.footer-label {
+    font-size: 14px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+/* Footer Content Sections */
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    max-width: 1000px;
+    margin: 30px auto;
+    text-align: left;
+    flex-wrap: wrap;
+}
+
+.footer-column {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+}
+
+.footer-column h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--saffron) !important;
+}
+
+.footer-column p {
+    font-size: 14px;
+    margin: 4px 0;
+    opacity: 0.8;
+}
+
+.footer-column a {
+    color: var(--saffron) !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-column a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 15px 0;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+/* Footer Navigation Buttons as Links */
+.footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.footer-nav a {
+    text-decoration: none;
+    background: none;
+    border: 2px solid white;
+    padding: 10px 20px;
+    color: white;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.footer-nav a.active {
+    background: var(--saffron) !important;
+    color: black;
+    font-weight: bold;
+}
+
+.footer-nav a:hover {
+    background: var(--saffron) !important;
+    color: black;
+}
+
+/* ============================= */
+/* ✅ Responsive Design for Tablets (1024px and below) */
+/* ============================= */
+@media screen and (max-width: 1024px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-column {
+        max-width: 80%;
+        text-align: center;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-nav a {
+        width: 60%;
+        text-align: center;
+    }
+}
+
+/* ============================= */
+/* ✅ Responsive Design for Mobile (768px and below) */
+/* ============================= */
+@media screen and (max-width: 768px) {
+    .footer-banner {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        padding: 30px;
+    }
+
+    .footer-info {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-year h2,
+    .footer-location h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .footer-column {
+        width: 100%;
+    }
+
+    .footer-nav {
+        flex-direction: column;
+    }
+
+    .footer-nav a {
+        width: 80%;
+        padding: 12px 0;
+    }
+}
+
+/* ============================= */
+/* ✅ Responsive Design for Small Phones (480px and below) */
+/* ============================= */
+@media screen and (max-width: 480px) {
+    .footer-banner {
+        padding: 20px;
+    }
+
+    .footer-info {
+        text-align: center;
+    }
+
+    .footer-year h2,
+    .footer-location h2 {
+        font-size: 20px;
+    }
+
+    .footer-column h4 {
+        font-size: 14px;
+    }
+
+    .footer-column p {
+        font-size: 12px;
+    }
+
+    .footer-nav a {
+        width: 90%;
+        font-size: 12px;
+        padding: 10px;
+    }
+}
