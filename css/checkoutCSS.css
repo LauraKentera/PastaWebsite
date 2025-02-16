@@ -2,65 +2,58 @@
 /* COLOR SCHEME & GLOBAL STYLES */
 /* ============================== */
 :root {
-    --antiflash-white: rgba(231, 227, 227, 0.86);
-    --avocado: #477E00ff;
-    --engineering-orange: #C51C00ff;
-    --saffron: #F1C03Dff;
-    --text-dark: #222;
-    --border-light: #d0d0d0;
-    --input-bg: #f9f9f9;
+    /* HEX Colors */
+    --antiflash-white: #f3f0f0;
+    --avocado: #477E00;
+    --engineering-orange: #C51C00;
+    --saffron: #F1C03D;
+
+    /* Border & Text */
+    --border-light: #d0d0d0;  /* 👈 FIXED Missing Property */
+    --text-dark: #222;/* Border & Text */
 }
 
-/* Global Styles */
-html, body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: -apple-system, BlinkMacSystemFont, "San Francisco", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f5f5f5;
+
+/* ============================== */
+/* LAYOUT FIX FOR TWO-COLUMN VIEW */
+/* ============================== */
+.checkout-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    gap: 40px;
+    max-width: 1200px;
+    margin: 200px auto 30px;
+    align-items: start;
 }
 
 /* ============================== */
-/* NAVBAR & FOOTER FIX */
+/* CHECKOUT FORM STYLING */
 /* ============================== */
-body {
-    padding-top: 80px; /* Adjust this if navbar is bigger */
-}
-
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 15px 0;
+.checkout-container {
     width: 100%;
-    margin-top: auto;
+    background: var(--antiflash-white);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 /* ============================== */
 /* ORDER SUMMARY - FIX WIDTH */
 /* ============================== */
 .order-summary-container {
-    max-width: 600px; /* Match the form width */
-    margin: 40px auto;
+    width: 100%;
     background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Title Styling */
-.order-summary-container h2 {
-    text-align: center;
-    color: var(--engineering-orange);
-    font-weight: bold;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
-
-/* Order Box - Layout Fix */
+/* ============================== */
+/* ORDER SUMMARY DETAILS */
+/* ============================== */
 .order-box {
     display: flex;
-    align-items: center;  /* Aligns the red line and text */
+    align-items: center;
     gap: 15px;
     border: 1px solid var(--border-light);
     padding: 15px;
@@ -68,141 +61,58 @@ footer {
     background: white;
     font-size: 18px;
     line-height: 1.6;
-    width: 100%; /* Take full container width */
+    width: 100%;
 }
 
-/* Fix Red Line */
+/* Red Line */
 .red-line {
     width: 4px;
-    height: 100%; /* Match the full height of the box */
+    height: 100%;
     background-color: red;
     border-radius: 3px;
     display: block;
 }
 
-/* Order Details - Ensures Consistency */
+/* ORDER DETAILS */
 .order-details {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex-grow: 1; /* Expands to fill space */
-}
-
-/* Make Labels Bolder */
-.order-box p {
-    margin: 0; /* Remove unnecessary margins */
-    font-weight: 500;
-    color: var(--text-dark);
-}
-
-.order-box strong {
-    font-weight: bold;
-    color: black;
-}
-
-
-
-/* ============================== */
-/* CHECKOUT FORM STYLING */
-/* ============================== */
-.checkout-container {
-    max-width: 600px;
-    margin: 30px auto;
-    background: var(--antiflash-white);
-    padding: 25px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Title */
-.checkout-container h2 {
-    text-align: center;
-    font-weight: bold;
-    color: var(--engineering-orange);
-}
-
-/* Form Sections */
-.container > form > div {
-    padding: 1.2rem;
-    border: 1px solid var(--border-light);
-    border-radius: 6px;
-    background-color: var(--input-bg);
-    margin-bottom: 1rem;
-}
-
-/* Labels */
-.container > form > div > label {
-    font-weight: bold;
-    color: var(--text-dark);
-    font-size: 14px;
-}
-
-/* Inputs & Selects */
-.form-control, .form-select {
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid var(--border-light);
-    border-radius: 4px;
-    transition: border-color 0.2s ease-in-out;
-    background: white;
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: var(--avocado);
-    outline: none;
-    box-shadow: 0px 0px 5px rgba(71, 126, 0, 0.4);
-}
-
-/* Inline Select Layout */
-.d-flex.gap-2 select {
-    flex: 1;
+    flex-grow: 1;
 }
 
 /* ============================== */
-/* BUTTON STYLING */
+/* FORM VALIDATION ERROR STYLES */
 /* ============================== */
-.btn-primary {
-    background-color: var(--avocado);
-    border-color: var(--avocado);
-    padding: 10px 16px;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background 0.3s ease-in-out;
-    color: white;
+.invalid-feedback {
+    color: red;
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    text-align: left;
 }
 
-.btn-primary:hover {
-    background-color: #3b6700;
-    color: white;
+.is-invalid {
+    border: 2px solid red !important;
 }
 
-.btn-outline-secondary {
-    padding: 10px 16px;
-    font-size: 16px;
-}
-
-/* Button Alignment */
-.d-flex.justify-content-end {
-    gap: 10px;
-}
-
-/* ============================== */
-/* PLACEHOLDER STYLING */
-/* ============================== */
-::placeholder {
-    color: #aaa;
-    font-style: italic;
-}
-
-/* ============================== */
-/* MODAL CENTERING */
-/* ============================== */
-.modal-dialog {
+.expiry-date-group {
     display: flex;
+    gap: 8px;
     align-items: center;
-    min-height: 100vh;
+    position: relative;
 }
 
-.modal-content {
-    margin: auto;
+/* ============================== */
+/* SHAKE EFFECT FOR TERMS CHECKBOX */
+/* ============================== */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    50% { transform: translateX(5px); }
+    75% { transform: translateX(-5px); }
+}
+
+.shake {
+    animation: shake 0.3s ease-in-out;
 }
