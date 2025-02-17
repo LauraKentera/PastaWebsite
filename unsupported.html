@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsupported Browser</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="icon" type="image/png" href="img/pastaFavIcon.png">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        .unsupported-container {
+            max-width: 600px;
+            padding: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #C51C00;
+        }
+        .browser-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .browser-icons a {
+            text-decoration: none;
+            transition: transform 0.3s ease-in-out;
+        }
+        .browser-icons a:hover {
+            transform: scale(1.1);
+        }
+        .btn-upgrade {
+            background-color: #477E00;
+            color: white;
+            padding: 10px 16px;
+            font-size: 16px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 15px;
+        }
+        .btn-upgrade:hover {
+            background-color: #3b6700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="unsupported-container">
+    <h1>Oops! Your browser is not supported</h1>
+    <p>It looks like your browser does not support the latest web technologies needed for this website.</p>
+    <p>For the best experience, please upgrade your browser or switch to one of the supported browsers below:</p>
+
+    <div class="browser-icons">
+        <a href="https://www.google.com/chrome/" target="_blank">
+            <img src="img/browsers/chrome.png" alt="Chrome" width="50">
+        </a>
+        <a href="https://www.mozilla.org/firefox/" target="_blank">
+            <img src="img/browsers/firefox.png" alt="Firefox" width="50">
+        </a>
+        <a href="https://www.microsoft.com/edge" target="_blank">
+            <img src="img/browsers/edge.png" alt="Edge" width="50">
+        </a>
+        <a href="https://www.apple.com/safari/" target="_blank">
+            <img src="img/browsers/safari.png" alt="Safari" width="50">
+        </a>
+    </div>
+
+    <a href="https://www.google.com/chrome/" target="_blank" class="btn-upgrade">Upgrade Now</a>
+</div>
+
+</body>
+</html>

@@ -18,6 +18,33 @@
 
 <!--    <a target="_blank" href="https://icons8.com/icon/pzJyl1GCF1hl/pasta">Pasta</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>-->
     <link rel="icon" type="image/png" href="img/pastaFavIcon.png">
+
+    <script src="vendors/modernizr-custom.js"></script>
+    <script>
+        // Perform Modernizr checks before loading the App module
+        if (!Modernizr.es6array || !Modernizr.generators || !Modernizr.es6math
+            || !Modernizr.arrow || !Modernizr.es6number || !Modernizr.es6object
+            || !Modernizr.es6collections || !Modernizr.promises
+            || !Modernizr.es6string)
+        {
+            /*
+             * window.location.replace(...) is better than using
+             * window.location.href, because replace() does not keep the
+             * originating page in the session history.
+             */
+            window.location.replace("unsupported.html");
+        } else {
+            /*
+             * If the checks pass, dynamically load the App module using
+             * traditional coding. Do not use string interpolation as it is
+             * also part of ES6.
+             */
+            var script = document.createElement('script');
+            script.type = 'module';
+            script.src = './js/App.js';
+            document.head.appendChild(script);
+        }
+    </script>
 </head>
 <body>
 
