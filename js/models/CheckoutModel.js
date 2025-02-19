@@ -1,80 +1,67 @@
-/**
- * CheckoutModel class is responsible for retrieving stored pasta selections
- * and managing the checkout form data.
- */
 export class CheckoutModel {
     constructor() {
-        this.pasta = "";
-        this.protein = "";
-        this.sauce = "";
-
-        this.fullName = "";
-        this.city = "";
-        this.address = "";
-        this.dobDay = "";
-        this.dobMonth = "";
-        this.dobYear = "";
+        this.data = {
+            pasta: "",
+            protein: "",
+            sauce: "",
+            fullName: "",
+            city: "",
+            address: "",
+            dobDay: "",
+            dobMonth: "",
+            dobYear: ""
+        };
 
         this.init();
     }
 
     /**
-     * Initializes this object properties. Loads data from localStorage.
+     * Initializes the model by loading data from localStorage.
      */
     init() {
-        // Load pasta selections
-        let storedPasta = localStorage.getItem("Pasta");
-        if (storedPasta) {
-            let parsedData = JSON.parse(storedPasta);
-            Object.assign(this, parsedData);
-            console.log("[CheckoutModel] Loaded Pasta Data:", this);
+        this.loadData("Pasta");
+        this.loadData("PersonalDetails");
+    }
+
+    /**
+     * Loads data from localStorage into the model.
+     * @param {string} key - The localStorage key.
+     */
+    loadData(key) {
+        const storedData = localStorage.getItem(key);
+        if (storedData) {
+            Object.assign(this.data, JSON.parse(storedData));
+            console.log(`[CheckoutModel] Loaded ${key} Data:`, this.data);
         } else {
-            console.warn("[CheckoutModel] No saved pasta selections found in localStorage.");
-        }
-
-        // Load personal details
-        let storedDetails = localStorage.getItem("PersonalDetails");
-        if (storedDetails) {
-            let parsedDetails = JSON.parse(storedDetails);
-
-            // Ensure DOB structure is correctly assigned
-            this.fullName = parsedDetails.fullName || "";
-            this.city = parsedDetails.city || "";
-            this.address = parsedDetails.address || "";
-            this.dobDay = parsedDetails.dobDay || "";
-            this.dobMonth = parsedDetails.dobMonth || "";
-            this.dobYear = parsedDetails.dobYear || "";
-
-            console.log("[CheckoutModel] Loaded Personal Details:", parsedDetails);
-        } else {
-            console.warn("[CheckoutModel] No personal details found in localStorage.");
+            console.warn(`[CheckoutModel] No saved ${key} found.`);
         }
     }
 
-
     /**
-     * Converts this object to a data object for the view.
-     * @returns {Object} - Object with input fields for the form.
+     * Returns model data formatted for the view.
+     * @returns {Object}
      */
     getInputData() {
-        return JSON.parse(JSON.stringify(this));
+        return { ...this.data };
     }
 
     /**
-     * Stores checkout form data in localStorage.
+     * Updates a field in the model and stores it in localStorage.
+     * @param {string} field - The field to update.
+     * @param {string} value - The new value.
      */
-    store() {
-        let personalData = {
-            fullName: this.fullName,
-            city: this.city,
-            address: this.address,
-            dobDay: this.dobDay || "",
-            dobMonth: this.dobMonth || "",
-            dobYear: this.dobYear || ""
-        };
-
-        localStorage.setItem("PersonalDetails", JSON.stringify(personalData));
-        console.log("[CheckoutModel] Stored Personal Details:", personalData);
+    update(field, value) {
+        if (this.data.hasOwnProperty(field)) {
+            this.data[field] = value;
+            this.store();
+        }
     }
 
+    /**
+     * Stores model data in localStorage.
+     */
+    store() {
+        localStorage.setItem("PersonalDetails", JSON.stringify(this.data));
+        console.log("[CheckoutModel] Stored Personal Details:", this.data);
+    }
 }

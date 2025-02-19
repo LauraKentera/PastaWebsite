@@ -2,12 +2,10 @@ import { days, months, years, expiryMonths, expiryYears } from "../utils/dateUti
 
 export class CheckoutView {
     constructor() {
-        // Select the new order summary container based on updated layout
         this.orderSummaryContainer = document.querySelector(".order-summary-container");
         this.selectedPasta = document.querySelector("#selectedPasta");
         this.selectedProtein = document.querySelector("#selectedProtein");
         this.selectedSauce = document.querySelector("#selectedSauce");
-
         this.form = document.querySelector("#form-checkout");
 
         if (!this.orderSummaryContainer) {
@@ -17,48 +15,12 @@ export class CheckoutView {
             console.error("[CheckoutView] ERROR: Checkout form not found in DOM!");
         }
 
-        // Ensure methods are bound to `this`
-        this.capitalize = this.capitalize.bind(this);
-
-        // Populate DOB Dropdowns
+        // Ensure dropdowns are populated
         this.populateDropdown(this.form.querySelector("select[name='dobDay']"), days);
         this.populateDropdown(this.form.querySelector("select[name='dobMonth']"), months);
         this.populateDropdown(this.form.querySelector("select[name='dobYear']"), years);
-
-        // Populate Expiry Date Dropdowns
         this.populateDropdown(this.form.querySelector("select[name='expiryMonth']"), expiryMonths);
         this.populateDropdown(this.form.querySelector("select[name='expiryYear']"), expiryYears);
-
-        // Delay populating the form slightly to ensure dropdowns exist
-        setTimeout(() => this.populateForm(), 200);
-    }
-
-    /**
-     * Renders the order summary with selected pasta, protein, and sauce.
-     * @param {Object} data - Data retrieved from localStorage.
-     */
-    renderOrderSummary(data) {
-        if (!this.orderSummaryContainer) {
-            console.error("[CheckoutView] ERROR: Cannot update order summary. Element is missing!");
-            return;
-        }
-
-        console.log("[CheckoutView] Rendering Order Summary:", data);
-
-        // Ensure the elements exist before trying to update them
-        if (this.selectedPasta) this.selectedPasta.textContent = data.pasta || "Not Selected";
-        if (this.selectedProtein) this.selectedProtein.textContent = data.protein || "Not Selected";
-        if (this.selectedSauce) this.selectedSauce.textContent = data.sauce || "Not Selected";
-    }
-
-    /**
-     * Capitalizes the first letter of a string.
-     * @param {string} text - The string to capitalize.
-     * @returns {string} The capitalized string.
-     */
-    capitalize(text) {
-        if (!text) return "";
-        return text.charAt(0).toUpperCase() + text.slice(1);
     }
 
     /**
@@ -73,7 +35,6 @@ export class CheckoutView {
         }
 
         selectElement.innerHTML = `<option value="">Select</option>`;
-
         options.forEach(option => {
             const opt = document.createElement("option");
             opt.value = option;
@@ -83,71 +44,105 @@ export class CheckoutView {
     }
 
     /**
-     * Populates the form fields with stored user information from localStorage.
+     * Renders the order summary with selected pasta, protein, and sauce.
+     * @param {Object} data - Data retrieved from localStorage.
      */
-    populateForm() {
-        if (!this.form) {
-            console.error("[CheckoutView] ERROR: Cannot populate form. Form element is missing!");
+    renderOrderSummary(data) {
+        if (!this.orderSummaryContainer) {
+            console.error("[CheckoutView] ERROR: Cannot update order summary. Element is missing!");
             return;
         }
 
-        let storedPersonalData = localStorage.getItem("PersonalDetails");
-        if (!storedPersonalData) {
-            console.warn("[CheckoutView] No stored personal data found.");
-            return;
-        }
+        console.log("[CheckoutView] Rendering Order Summary:", data);
 
-        let data = JSON.parse(storedPersonalData);
-        console.log("[CheckoutView] Retrieved Personal Details:", data);
+        this.selectedPasta.textContent = data.pasta || "Not Selected";
+        this.selectedProtein.textContent = data.protein || "Not Selected";
+        this.selectedSauce.textContent = data.sauce || "Not Selected";
+    }
 
-        // Populate text inputs
-        const textFields = {
-            fullName: "input[name='fullName']",
-            city: "input[name='city']",
-            address: "input[name='address']"
-        };
+    /**
+     * Populates the form fields with stored user information from localStorage.
+     * @param {Object} data - User data.
+     */
+    populateForm(data) {
+        if (!this.form) return;
 
-        for (let key in textFields) {
-            let input = this.form.querySelector(textFields[key]);
-            if (input && data[key]) {
-                input.value = data[key];
-            }
-        }
+        Object.keys(data).forEach((key) => {
+            const input = this.form.querySelector(`[name="${key}"]`);
+            if (input) input.value = data[key] || "";
+        });
 
-        // Populate select fields (DOB)
-        const dobFields = {
-            dobDay: "select[name='dobDay']",
-            dobMonth: "select[name='dobMonth']",
-            dobYear: "select[name='dobYear']"
-        };
+        // Ensure dropdowns are set correctly after they are populated
+        setTimeout(() => {
+            this.setDropdownValue("dobDay", data.dobDay);
+            this.setDropdownValue("dobMonth", data.dobMonth);
+            this.setDropdownValue("dobYear", data.dobYear);
+            this.setDropdownValue("expiryMonth", data.expiryMonth);
+            this.setDropdownValue("expiryYear", data.expiryYear);
+        }, 200);
+    }
 
-        for (let key in dobFields) {
-            let selectElement = this.form.querySelector(dobFields[key]);
-            if (selectElement && data[key]) {
-                setTimeout(() => {
-                    let matchingOption = selectElement.querySelector(`option[value="${data[key]}"]`);
-                    if (matchingOption) {
-                        selectElement.value = data[key];
-                    } else {
-                        console.warn(`[CheckoutView] WARNING: No matching option found for ${key}: ${data[key]}`);
-                    }
-                }, 200); // Small delay ensures dropdowns are fully populated
-            }
+    /**
+     * Sets the value of a dropdown field.
+     * @param {string} fieldName - The name of the dropdown field.
+     * @param {string} value - The value to set.
+     */
+    setDropdownValue(fieldName, value) {
+        const selectElement = this.form.querySelector(`select[name='${fieldName}']`);
+        if (selectElement && value) {
+            selectElement.value = value;
         }
     }
 
     /**
-     * Ensures that the Terms and Conditions checkbox is checked before submitting.
+     * Highlights the Terms and Conditions checkbox if not checked.
      */
     highlightTermsCheckbox() {
-        let termsCheckbox = this.form.querySelector("input[type='checkbox']");
-        let termsLabel = termsCheckbox.closest(".form-check"); // Get parent container
+        let termsLabel = this.form.querySelector(".form-check");
+        termsLabel.classList.add("shake", "border-danger");
+        setTimeout(() => termsLabel.classList.remove("shake", "border-danger"), 600);
+    }
 
-        if (!termsCheckbox.checked) {
-            termsLabel.classList.add("shake", "border-danger");
-            setTimeout(() => {
-                termsLabel.classList.remove("shake", "border-danger");
-            }, 600); // Remove effect after animation
+    /**
+     * Checks if the Terms and Conditions checkbox is checked.
+     * @returns {boolean}
+     */
+    isTermsAccepted() {
+        const termsCheckbox = this.form.querySelector("input[type='checkbox']");
+        return termsCheckbox && termsCheckbox.checked;
+    }
+
+    /**
+     * Displays an error message below the field.
+     * @param {string} field - The field name.
+     * @param {string} message - The error message.
+     */
+    showError(field, message) {
+        const input = this.form.querySelector(`[name="${field}"]`);
+        if (!input) return;
+
+        let errorDiv = input.nextElementSibling;
+        if (!errorDiv || !errorDiv.classList.contains("invalid-feedback")) {
+            errorDiv = document.createElement("div");
+            errorDiv.className = "invalid-feedback";
+            input.parentNode.appendChild(errorDiv);
+        }
+        errorDiv.textContent = message;
+        input.classList.add("is-invalid");
+    }
+
+    /**
+     * Removes the error message.
+     * @param {string} field - The field name.
+     */
+    clearError(field) {
+        const input = this.form.querySelector(`[name="${field}"]`);
+        if (!input) return;
+
+        input.classList.remove("is-invalid");
+        let errorDiv = input.nextElementSibling;
+        if (errorDiv && errorDiv.classList.contains("invalid-feedback")) {
+            errorDiv.remove();
         }
     }
 
