@@ -1,21 +1,63 @@
 import { days, months, years, expiryMonths, expiryYears } from "../utils/dateUtils.js";
 
+/**
+ * Handles the checkout form UI interactions, including validation error messages and dropdown population.
+ */
 export class CheckoutView {
     constructor() {
+        /**
+         * The checkout form element.
+         * @type {HTMLFormElement}
+         */
+        this.form = document.querySelector("#form-checkout");
+
+        /**
+         * The order summary container.
+         * @type {HTMLElement}
+         */
         this.orderSummaryContainer = document.querySelector(".order-summary-container");
+
+        /**
+         * Order summary elements.
+         * @type {HTMLElement}
+         */
         this.selectedPasta = document.querySelector("#selectedPasta");
         this.selectedProtein = document.querySelector("#selectedProtein");
         this.selectedSauce = document.querySelector("#selectedSauce");
-        this.form = document.querySelector("#form-checkout");
 
-        if (!this.orderSummaryContainer) {
-            console.error("[CheckoutView] ERROR: Order summary container not found in DOM!");
-        }
+        /**
+         * Stores validation messages loaded from `messages.json`.
+         * @type {Object}
+         */
+        this.messages = {};
+
         if (!this.form) {
             console.error("[CheckoutView] ERROR: Checkout form not found in DOM!");
+            return;
         }
 
-        // Ensure dropdowns are populated
+        this.loadMessages();
+        this.initializeDropdowns();
+    }
+
+    /**
+     * Loads validation messages from `messages.json`.
+     * @async
+     */
+    async loadMessages() {
+        try {
+            const response = await fetch("/js/utils/messages.json");
+            if (!response.ok) throw new Error("Failed to load messages.json");
+            this.messages = await response.json();
+        } catch (error) {
+            console.error("[CheckoutView] ERROR: Cannot load messages.json", error);
+        }
+    }
+
+    /**
+     * Initializes dropdowns for date of birth and expiry date.
+     */
+    initializeDropdowns() {
         this.populateDropdown(this.form.querySelector("select[name='dobDay']"), days);
         this.populateDropdown(this.form.querySelector("select[name='dobMonth']"), months);
         this.populateDropdown(this.form.querySelector("select[name='dobYear']"), years);
@@ -24,126 +66,118 @@ export class CheckoutView {
     }
 
     /**
-     * Populates a dropdown select element with options.
-     * @param {HTMLElement} selectElement - The select element to populate.
-     * @param {Array} options - The options to populate the dropdown with.
+     * Populates a select dropdown with given options.
+     * @param {HTMLSelectElement} selectElement - The select element to populate.
+     * @param {Array<string|number>} options - The options to populate the dropdown with.
+     * @param {string} [selectedValue=""] - The value to pre-select.
      */
-    populateDropdown(selectElement, options) {
-        if (!selectElement) {
-            console.error("[CheckoutView] ERROR: Dropdown element not found!");
-            return;
-        }
-
+    populateDropdown(selectElement, options, selectedValue = "") {
+        if (!selectElement) return;
         selectElement.innerHTML = `<option value="">Select</option>`;
         options.forEach(option => {
             const opt = document.createElement("option");
             opt.value = option;
             opt.textContent = option;
+            if (selectedValue && option.toString() === selectedValue.toString()) {
+                opt.selected = true;
+            }
             selectElement.appendChild(opt);
         });
     }
 
     /**
-     * Renders the order summary with selected pasta, protein, and sauce.
-     * @param {Object} data - Data retrieved from localStorage.
-     */
-    renderOrderSummary(data) {
-        if (!this.orderSummaryContainer) {
-            console.error("[CheckoutView] ERROR: Cannot update order summary. Element is missing!");
-            return;
-        }
-
-        console.log("[CheckoutView] Rendering Order Summary:", data);
-
-        this.selectedPasta.textContent = data.pasta || "Not Selected";
-        this.selectedProtein.textContent = data.protein || "Not Selected";
-        this.selectedSauce.textContent = data.sauce || "Not Selected";
-    }
-
-    /**
-     * Populates the form fields with stored user information from localStorage.
-     * @param {Object} data - User data.
+     * Populates the form fields with stored user information.
+     * @param {Object} data - The user data object.
      */
     populateForm(data) {
         if (!this.form) return;
 
         Object.keys(data).forEach((key) => {
             const input = this.form.querySelector(`[name="${key}"]`);
-            if (input) input.value = data[key] || "";
+            if (input) {
+                input.value = data[key] || "";
+            }
         });
 
-        // Ensure dropdowns are set correctly after they are populated
-        setTimeout(() => {
-            this.setDropdownValue("dobDay", data.dobDay);
-            this.setDropdownValue("dobMonth", data.dobMonth);
-            this.setDropdownValue("dobYear", data.dobYear);
-            this.setDropdownValue("expiryMonth", data.expiryMonth);
-            this.setDropdownValue("expiryYear", data.expiryYear);
-        }, 200);
+        // Populate dropdowns with selected values
+        this.populateDropdown(this.form.querySelector("select[name='dobDay']"), days, data.dobDay);
+        this.populateDropdown(this.form.querySelector("select[name='dobMonth']"), months, data.dobMonth);
+        this.populateDropdown(this.form.querySelector("select[name='dobYear']"), years, data.dobYear);
+        this.populateDropdown(this.form.querySelector("select[name='expiryMonth']"), expiryMonths, data.expiryMonth);
+        this.populateDropdown(this.form.querySelector("select[name='expiryYear']"), expiryYears, data.expiryYear);
     }
 
     /**
-     * Sets the value of a dropdown field.
-     * @param {string} fieldName - The name of the dropdown field.
-     * @param {string} value - The value to set.
+     * Renders the order summary using user selections.
+     * @param {Object} data - The user data object.
      */
-    setDropdownValue(fieldName, value) {
-        const selectElement = this.form.querySelector(`select[name='${fieldName}']`);
-        if (selectElement && value) {
-            selectElement.value = value;
-        }
+    renderOrderSummary(data) {
+        if (!this.orderSummaryContainer) return;
+        this.selectedPasta.textContent = data.pasta || "Not Selected";
+        this.selectedProtein.textContent = data.protein || "Not Selected";
+        this.selectedSauce.textContent = data.sauce || "Not Selected";
     }
 
     /**
-     * Highlights the Terms and Conditions checkbox if not checked.
+     * Displays validation error messages below the corresponding input fields.
+     * @async
+     * @param {string} field - The field name associated with the error.
+     * @param {string} errorKey - The key for the corresponding error message from `messages.json`.
      */
-    highlightTermsCheckbox() {
-        let termsLabel = this.form.querySelector(".form-check");
-        termsLabel.classList.add("shake", "border-danger");
-        setTimeout(() => termsLabel.classList.remove("shake", "border-danger"), 600);
-    }
-
-    /**
-     * Checks if the Terms and Conditions checkbox is checked.
-     * @returns {boolean}
-     */
-    isTermsAccepted() {
-        const termsCheckbox = this.form.querySelector("input[type='checkbox']");
-        return termsCheckbox && termsCheckbox.checked;
-    }
-
-    /**
-     * Displays an error message below the field.
-     * @param {string} field - The field name.
-     * @param {string} message - The error message.
-     */
-    showError(field, message) {
+    async showError(field, errorKey) {
         const input = this.form.querySelector(`[name="${field}"]`);
         if (!input) return;
 
-        let errorDiv = input.nextElementSibling;
-        if (!errorDiv || !errorDiv.classList.contains("invalid-feedback")) {
+        let errorDiv = input.parentNode.querySelector(".invalid-feedback");
+        if (!errorDiv) {
             errorDiv = document.createElement("div");
             errorDiv.className = "invalid-feedback";
             input.parentNode.appendChild(errorDiv);
         }
-        errorDiv.textContent = message;
-        input.classList.add("is-invalid");
-    }
 
-    /**
-     * Removes the error message.
-     * @param {string} field - The field name.
-     */
-    clearError(field) {
-        const input = this.form.querySelector(`[name="${field}"]`);
-        if (!input) return;
-
-        input.classList.remove("is-invalid");
-        let errorDiv = input.nextElementSibling;
-        if (errorDiv && errorDiv.classList.contains("invalid-feedback")) {
-            errorDiv.remove();
+        if (errorKey && this.messages[errorKey]) {
+            errorDiv.textContent = this.messages[errorKey]; // Correct error message
+            input.classList.add("is-invalid");
+        } else {
+            errorDiv.textContent = "";
+            input.classList.remove("is-invalid");
         }
     }
 
+    /**
+     * Displays all validation errors for the given fields.
+     * @param {Object} errors - An object where keys are field names and values are error keys.
+     */
+    showValidationErrors(errors) {
+        this.clearAllErrors();
+        Object.keys(errors).forEach(field => {
+            this.showError(field, errors[field]);
+        });
+    }
+
+    /**
+     * Clears all validation errors from the form.
+     */
+    clearAllErrors() {
+        this.form.querySelectorAll(".invalid-feedback").forEach(el => el.remove());
+        this.form.querySelectorAll(".is-invalid").forEach(el => el.classList.remove("is-invalid"));
+    }
+
+    /**
+     * Checks if the Terms & Conditions checkbox is checked.
+     * @returns {boolean} - Returns `true` if accepted, otherwise `false`.
+     */
+    isTermsAccepted() {
+        return this.form.querySelector("input[name='terms']")?.checked ?? false;
+    }
+
+    /**
+     * Highlights the Terms & Conditions checkbox if not checked.
+     */
+    highlightTermsCheckbox() {
+        const termsLabel = this.form.querySelector(".form-check");
+        if (!termsLabel) return;
+        termsLabel.classList.add("shake", "border-danger");
+        setTimeout(() => termsLabel.classList.remove("shake", "border-danger"), 600);
+    }
 }

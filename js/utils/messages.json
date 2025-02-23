@@ -1,0 +1,10 @@
+{
+  "fullName": "Only letters and spaces allowed.",
+  "cardholderName": "Cardholder name cannot contain numbers.",
+  "city": "City name must contain only letters.",
+  "address": "Enter a valid address.",
+  "dob": "Please select a valid date of birth.",
+  "cardNumber": "Enter a valid 16-digit card number.",
+  "cvv": "CVV must be 3 digits.",
+  "expiryDate": "Please select a valid expiry date."
+}

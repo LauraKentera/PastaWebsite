@@ -1,82 +1,124 @@
-# 🍝 Pasta Paradise - Custom Pasta Ordering Website
+Here is your **updated README.md** based on your **current project structure** and **new features**:
 
-## 📌 Project Overview
-**Pasta Paradise** is a responsive, Bootstrap-powered website where users can:
-- Browse and customize their own pasta dish by selecting pasta type, sauce, and protein.
-- View a checkout page to enter their details and finalize their order.
-- See an interactive Terms & Conditions popup before completing checkout.
-- Experience a clean, user-friendly interface with a modern aesthetic.
+---
 
-## 🏗️ Project Structure
+## **🍝 Pasta Paradise - Custom Pasta Ordering Website**
+
+### **📌 Project Overview**
+**Pasta Paradise** is a **fully interactive, responsive web application** where users can:
+- Customize their own pasta dish by selecting **pasta type, sauce, and protein**.
+- Enter their details on the **checkout page** with real-time form validation.
+- View an interactive **Terms & Conditions popup** before finalizing checkout.
+- Experience a **modern, user-friendly UI** with dynamic JavaScript features.
+
+---
+
+## **🏗️ Project Structure**
 ```plaintext
 📂 PastaWebsite
 │── 📂 css
-│   ├── style.css (Global styling)
-│   ├── checkoutCSS.css (Checkout-specific styles)
+│   ├── style.css          # Global styles
+│   ├── checkoutCSS.css    # Styles for the checkout page
+│   ├── footer.css         # Footer-specific styles
+│   ├── review.css         # Additional UI styling
 │
-│── 📂 img (Stores images for pasta types, sauces, etc.)
-│   ├── pastaFavIcon.png
-│   ├── spaghetti.png
-│   ├── penne.png
-│   ├── farfalle.png
-│   ├── marinara.png
-│   ├── alfredo.png
-│   ├── pesto.png
-│   ├── chicken.png
-│   ├── shrimp.png
-│   ├── tofu.png
+│── 📂 data
+│   ├── selectData.js      # Data file for dropdown selections
 │
-│── 📂 js (For future JavaScript functionality)
-│   ├── script.js
+│── 📂 img                 # Image assets for pasta, sauces, and users
+│   ├── pasta/             # Pasta-related images
+│   ├── protein/           # Protein selection images
+│   ├── sauce/             # Sauce selection images
+│   ├── users/             # User profile images
 │
-│── index.html (Main page - pasta selection UI)
-│── checkout.html (Checkout form with validation & modal popup)
-│── README.md (Documentation)
+│── 📂 js
+│   │── 📂 controllers
+│   │   ├── CheckoutController.js  # Controls checkout page behavior
+│   │   ├── MainController.js      # Main app logic
+│   │
+│   │── 📂 models
+│   │   ├── CheckoutModel.js  # Stores and validates checkout data
+│   │   ├── MainModel.js      # Core data handling
+│   │
+│   │── 📂 views
+│   │   ├── CheckoutView.js  # Handles checkout UI updates
+│   │   ├── MainView.js      # General UI updates
+│   │
+│   │── 📂 utils
+│   │   ├── dateUtils.js     # Utility functions for dropdown dates
+│   │   ├── messages.json    # Stores validation messages
+│   │
+│   ├── App.js               # Entry point for initializing app
+│
+│── 📂 vendors
+│   ├── modernizr-custom.js  # Modernizr library for browser support
+│
+│── checkout.html             # Checkout form with live validation
+│── index.html                # Main page - pasta selection UI
+│── unsupported.html          # Fallback page for unsupported browsers
+│── README.md                 # Project documentation
 ```
 
-## 🎨 Technologies Used
-- **HTML5** - Structure of the pages
-- **CSS3** - Styling and layout
-- **Bootstrap 5** - Responsive design and layout
-- **Flexbox & Grid** - Layout enhancements
-- **JavaScript (Future Implementation)** - Interactivity (pasta selection, form validation, etc.)
+---
 
-## 🖌 Features Implemented
+## **🎨 Technologies Used**
+- **HTML5** - Semantic structure for better accessibility.
+- **CSS3 (Flexbox & Grid)** - Clean, responsive design.
+- **Bootstrap 5** - Simplifies UI layout and responsiveness.
+- **JavaScript (ES6+ Modules)** - Controls interactivity and form validation.
+- **LocalStorage** - Stores user selections for a smoother UX.
+- **Modernizr** - Ensures compatibility with older browsers.
+
+---
+
+## **🖌 Features Implemented**
 ### **1️⃣ Navigation & Layout**
-- Fixed **navbar** at the top for easy navigation.
-- Smooth scrolling to different sections on the main page.
+✔ **Fixed Navbar** at the top for seamless page transitions.  
+✔ **Smooth scrolling** to sections on the homepage.
 
-### **2️⃣ Create Your Own Pasta (Selection UI)**
-- **Circular images** for selecting pasta type, sauce, and protein.
-- **Click effect**: Adds a green border (`--avocado: #477E00ff;`) when selected.
-- **Three-step selection process**: Pasta → Sauce → Protein.
-- **"Done" button** redirects to the checkout page.
+### **2️⃣ Custom Pasta Selection**
+✔ Users select **pasta type, sauce, and protein** with visual feedback.  
+✔ Selected items **appear in the checkout summary** dynamically.  
+✔ **LocalStorage** preserves selections when navigating between pages.
 
 ### **3️⃣ Checkout Page (Form & Validation)**
-- **User-friendly form** with clear labels and placeholders (e.g., "John Doe", "1234 5678 9012 3456").
-- **Date of Birth dropdowns** formatted correctly.
-- **Card input fields** use "xxxx xxxx xxxx xxxx" placeholders.
-- **Styled input fields** for a clean, professional look.
+✔ Real-time **validation** for:
+- **Full name** (letters only)
+- **Address & City**
+- **Cardholder Name** (matches format)
+- **Card Number, CVV, Expiry Date**  
+  ✔ Error messages are loaded from **messages.json** dynamically.  
+  ✔ Invalid fields are marked **red** until corrected.
 
 ### **4️⃣ Terms & Conditions Modal**
-- Clicking "Terms and Conditions" **opens a centered popup**.
-- The modal is **fully responsive** and does not fly off the screen.
-- Users **must agree** to terms before proceeding.
+✔ Clicking "Terms and Conditions" opens a **popup modal**.  
+✔ Users **must accept** terms before placing an order.
 
-### **5️⃣ Footer Always at Bottom**
-- Uses **flexbox** to ensure footer stays at the bottom, even on short pages.
+### **5️⃣ Order Summary**
+✔ Displays **selected pasta, sauce, and protein** before purchase.  
+✔ Updates **live** as users modify selections.
 
-## 📌 Future Enhancements
-- ✅ Add JavaScript to make pasta selections interactive.
-- ✅ Implement local storage to **remember user choices**.
-- ✅ Improve animations & transitions for a smoother UX.
-- ✅ Add payment processing simulation.
+### **6️⃣ Enhanced User Experience**
+✔ **Dropdown menus** for selecting **date of birth & expiry date**.  
+✔ **Auto-populating form fields** with saved user data.  
+✔ **Error handling improvements** for better user feedback.
 
-## 🏆 Credits
-- **Developed by:** Laura Kentera
-- **Open-Source Code:** Bootstrap UI concepts 
-- **Icons & Assets:** Icons8, Freepik, Unsplash 
+---
+
+## **📌 Future Enhancements**
+✅ **Payment Simulation** - Simulate a payment gateway for better UX.  
+✅ **Dark Mode** - Add a theme switcher for better accessibility.  
+✅ **User Accounts** - Allow users to save preferences.  
+✅ **Mobile Optimizations** - Further improvements for smaller screens.
+
+---
+
+## **🏆 Credits**
+**Developed by:** *Laura Kentera*  
+**Technologies & Frameworks:** Bootstrap, JavaScript ES6, LocalStorage  
+**Icons & Assets:** Icons8, Freepik, Unsplash
 
 ---
 © 2025 Pasta Paradise. All rights reserved.
 
+---
